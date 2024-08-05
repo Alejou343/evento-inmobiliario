@@ -4,7 +4,7 @@ interface ComponentProps {
   children: string
   onClick: any
   type: 'submit' | 'reset' | 'button'
-  className: string
+  className?: string
 }
 
 const Button: React.FC<ComponentProps> = ({children, onClick, type, className}) => {
@@ -12,7 +12,7 @@ const Button: React.FC<ComponentProps> = ({children, onClick, type, className}) 
       <button 
       type={type} 
       onClick={onClick} 
-      className={`border text-xl mx-auto font-semibold rounded-lg text-white p-2 ${className}`} 
+      className={`border text-xl mx-auto font-semibold rounded-lg p-2 ${className}`} 
       >
         {children}
       </button>
