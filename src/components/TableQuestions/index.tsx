@@ -13,7 +13,7 @@ interface ComponentProps {
     title: string
 }
 
-const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
+const Index: React.FC<ComponentProps> = ({ endpoint, title }) => {
 
     // const { item } = useItem();
     const [deleteId, setDeleteId] = React.useState<number>(0);
@@ -37,7 +37,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
         };
 
         fetchData();
-    }, [openModal, endpoint]); // Dependencia modificada para que el efecto se dispare solo cuando cambie `endpoint`
+    }, [endpoint, openModal]); // Dependencia modificada para que el efecto se dispare solo cuando cambie `endpoint`
 
     const openDeleteModal = (id: number) => {
         setOpenModal(!openModal)

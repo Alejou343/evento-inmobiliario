@@ -1,7 +1,8 @@
 import React from 'react'
 import Button from '@/components/Button'
 import Inform from '@/components/Inform'
-import TableItems from '@/components/TableItems'
+import TableRegisters from '@/components/TableRegisters'
+import TableQuestions from '@/components/TableQuestions'
 
 const Index = () => {
 
@@ -19,8 +20,8 @@ const Index = () => {
             </div>
             {item == 0 ? <Inform endpoint='informeRegistros' /> : null}
             {item == 1 ? <Inform endpoint='informePreguntas' /> : null}
-            {item == 2 ? <TableItems title="Total Registros" endpoint="getRegistros" /> : null}
-            {item == 3 ? <TableItems title="Total Preguntas" endpoint="getPreguntas" /> : null}
+            {item == 2 ? <TableRegisters title="Total Registros" endpoint="getRegistros" /> : null}
+            {item == 3 ? <TableQuestions title="Total Preguntas" endpoint="getPreguntas" /> : null}
         </main>
     )
 }
