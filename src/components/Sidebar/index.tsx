@@ -2,15 +2,17 @@
 import React from 'react'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
+import { useItem } from '@/context/itemContext'
 import Cookies from 'js-cookie'
 import SideHeader from '@/components/SideHeader'
+import UserInfo from '@/components/UserInfo'
 
 const Index = () => {
 
     const router = useRouter()
     const styles: string[] = ['bg-secondary hover:bg-auxiliar hover:text-secondary', 'bg-white hover:bg-auxiliar !text-black']
     const [user, setUser] = React.useState<any>()
-    const [item, setItem] = React.useState<number>(1)
+    const { item, setItem } = useItem()
 
     React.useEffect(() => {
       try {
@@ -69,7 +71,7 @@ const Index = () => {
           Total Preguntas
         </Button>
       </div>
-      {/* <UserInfo props = {{user, handleLogout}} /> */}
+      <UserInfo props = {{user, handleLogout}} />
     </aside>
   )
 }
