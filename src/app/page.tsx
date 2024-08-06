@@ -1,8 +1,30 @@
-'use client'
-import Main from '@/containers/Main';
+"use client"
+import React from "react"
+import Login from '@/containers/Login'
+import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 
-export default function Home() {
+const Home : React.FC = () => {
+  
+  const router: AppRouterInstance = useRouter()
+  
+  React.useEffect(() => {
+    try {
+      const userLogged = Cookies.get('SessionInfo')
+      if (userLogged) {
+        router.push('/main')
+      }
+    } catch (error) {
+        console.error(error)
+    }
+  }, [router])
+
   return (
-    <Main />
-  );
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <Login />
+    </main>
+  )
 }
+
+export default Home;
