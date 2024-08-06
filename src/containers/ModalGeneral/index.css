@@ -1,0 +1,22 @@
+.modal-general {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    backdrop-filter: blur(8px)
+}
+
+.close-modal-icon {
+    position: absolute;
+    right: 1vh;
+    top: 1vh;
+}
+
+.modal {
+    min-width: 15vw;
+    border: 2px solid #009d71;
+}
