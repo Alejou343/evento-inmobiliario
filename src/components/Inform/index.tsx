@@ -1,45 +1,45 @@
-import React from 'react'
-import axios from 'axios'
-import Loader from '@/components/Loader'
+import React from "react";
+import axios from "axios";
+import Loader from "@/components/Loader";
 
 interface ComponentProps {
-  endpoint: string
+  endpoint: string;
 }
 
 const Index: React.FC<ComponentProps> = ({ endpoint }) => {
-
-  const [content, setContent] = React.useState<string>('')
-  const [loaderActive, setLoaderActive] = React.useState<boolean>(false)
+  const [content, setContent] = React.useState<string>("");
+  const [loaderActive, setLoaderActive] = React.useState<boolean>(false);
 
   const handleResponse = (message: string) => {
-    setContent(message)
-    setLoaderActive(false)
-  }
+    setContent(message);
+    setLoaderActive(false);
+  };
 
   const handleResponseFailed = (message: string) => {
-    setContent(message)
-    setLoaderActive(false)
-  }
+    setContent(message);
+    setLoaderActive(false);
+  };
 
   React.useEffect(() => {
-    setLoaderActive(true)
+    setLoaderActive(true);
     try {
-      axios.get(`${process.env.BACK_LINK}/api/${endpoint}`)
-      .then((res) => handleResponse(res.data.answer))
-      .catch((err) => handleResponseFailed('Error consultando la información'))
-    } catch(err) {
-      console.error(err)
+      axios
+        .get(`${process.env.BACK_LINK}/api/${endpoint}`)
+        .then((res) => handleResponse(res.data.answer))
+        .catch((err) =>
+          handleResponseFailed("Error consultando la información")
+        );
+    } catch (err) {
+      console.error(err);
     }
-  }, [endpoint])
+  }, [endpoint]);
 
   return (
-    <div className='w-7/12 max-h-[50rem] border-2 border-purple-300 mx-auto overflow-y-auto'>
+    <div className="w-full max-w-lg h-96 border-2 border-secondary mx-auto overflow-y-auto rounded-md my-2">
       <Loader active={loaderActive} />
-      <pre className='p-2'>
-        {content}
-      </pre>
+      <pre className="p-4">{content}</pre>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

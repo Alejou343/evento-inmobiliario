@@ -10,16 +10,15 @@ import UserInfo from '@/components/UserInfo'
 const Index = () => {
 
     const router = useRouter()
-    const styles: string[] = ['bg-secondary hover:bg-auxiliar hover:text-secondary', 'bg-white hover:bg-auxiliar !text-black']
+    const styles: string[] = ['bg-secondary hover:bg-auxiliar hover:text-secondary text-xs w-1/2', 'bg-white hover:bg-auxiliar !text-black text-xs w-1/2']
     const [user, setUser] = React.useState<any>()
     const { item, setItem } = useItem()
 
     React.useEffect(() => {
       try {
-        const userLogged = JSON.parse(Cookies.get('SessionInfo') || '{}')
-
+        const userLogged = localStorage.getItem('USERNAME')
         if (userLogged) {
-          setUser(userLogged?.data?.user_name)
+          setUser(userLogged)
         }
       } catch (error) {
         console.error('Error al renderizar --> ', error)
@@ -45,28 +44,28 @@ const Index = () => {
         <Button 
           onClick={() => handleChange(0)} 
           type="button" 
-          className={`text-xs ${item == 0 ? styles[0] : styles[1]}`} 
+          className={`${item == 0 ? styles[0] : styles[1]}`} 
         >
           Informe Registros
         </Button>
         <Button 
           onClick={() => handleChange(1)} 
           type="button" 
-          className={`text-xs ${item == 1 ? styles[0] : styles[1]}`} 
+          className={`${item == 1 ? styles[0] : styles[1]}`} 
         >
           Informe Preguntas
         </Button>
         <Button 
           onClick={() => handleChange(2)} 
           type="button" 
-          className={`text-xs ${item == 2 ? styles[0] : styles[1]}`} 
+          className={`${item == 2 ? styles[0] : styles[1]}`} 
         >
           Total Registros
         </Button>
         <Button 
           onClick={() => handleChange(3)} 
           type="button" 
-          className={`text-xs ${item == 3 ? styles[0] : styles[1]}`} 
+          className={`${item == 3 ? styles[0] : styles[1]}`} 
         >
           Total Preguntas
         </Button>
