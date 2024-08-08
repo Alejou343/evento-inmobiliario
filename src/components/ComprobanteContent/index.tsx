@@ -10,7 +10,8 @@ interface ComponentProps {
 }
 
 const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
-    
+
+    const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg)$/i    
     const [alert, setAlert] = React.useState<string>('');
     const [image, setImage] = React.useState<string>('')
     const [warning, setWarning] = React.useState<string>('');
@@ -19,11 +20,12 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
+                setWarning('');
                 const response = await axios.get(`${process.env.BACK_LINK}/api/comprobante/${id}`);
                 setImage(response?.data?.url);
             } catch (err) {
                 console.error('ERROR', err);
-                setWarning('No se pudo cargar la imagen. Intenta nuevamente más tarde.');
+                setWarning('Comprobante no encontrado');
             }
         };
 
@@ -46,7 +48,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
         setWarning('');
         setLoaderActive(true);
         // Metodo para enviar mensaje de confirmación por Whatsapp
-        axios.post(`${process.env.BACK_LINK}/api/sendConfirmation`, { phone: id })
+        axios.post(`${process.env.BACK_LINK}/api/sendMessageConfirm`, { phone: id })
         .then(() => eventSubmit())
         .catch(() => eventSubmitFailed());
     }
@@ -56,13 +58,15 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
             <Loader active={loaderActive} />
             <div className='items-center flex flex-col p-6 pb-0 pt-0 text-center'>
                 <p> Comprobante de Bancolombia del usuario: <br /> <span className="font-bold"> {id} </span></p>
-                <Image 
+                { imageExtensions.test(image) 
+                    ? <Image 
                     src={image} 
                     alt={`Comprobante_${id}.jpg`} 
                     width={200} 
                     height={200} 
-                    onError={() => setWarning('No se pudo cargar la imagen. Intenta nuevamente más tarde.')} 
-                />
+                    /> 
+                    : <p className='text-xs my-2 text-red-500 text-center'> Comprobante no encontrado </p>
+                }
                 <p>{alert}</p>
                 <p>{warning}</p>
             </div>
