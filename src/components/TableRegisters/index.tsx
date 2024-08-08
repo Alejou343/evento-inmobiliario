@@ -68,7 +68,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                                 <th className='border px-2 font-bold' key={key}>{key}
                                 </th>
                             ))}
-                            <th className='border px-2 font-bold'>Ver comprobante</th>
+                            <th className='border px-2 font-bold'>Comprobante</th>
                         </tr>
                     </thead>
                     <tbody>
