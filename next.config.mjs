@@ -4,7 +4,11 @@ const nextConfig = {
         BACK_LINK: process.env.BACK_LINK
     },
     images: {
-        domains: ['pocki-resources-bucket-prod.s3.amazonaws.com']
+        remotePatterns: [{
+            protocol: 'https', 
+            hostname: 'pocki-resources-bucket-prod.s3.amazonaws.com',
+            pathname: '/**'
+        }]
     } 
 };
 

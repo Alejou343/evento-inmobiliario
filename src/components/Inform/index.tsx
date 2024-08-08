@@ -35,9 +35,16 @@ const Index: React.FC<ComponentProps> = ({ endpoint }) => {
   }, [endpoint]);
 
   return (
-    <div className="w-full max-w-lg h-96 border-2 border-secondary mx-auto overflow-y-auto rounded-md my-2">
+    <div className="w-full max-w-4xl h-[80vh] border-2 border-secondary mx-auto overflow-y-auto rounded-md my-4 bg-white shadow-lg p-8">
       <Loader active={loaderActive} />
-      <pre className="p-4">{content}</pre>
+      <div className="report-header mb-8">
+        <h1 className="text-2xl font-bold mb-4 text-center">Informe Evento Inmobiliario del Año</h1>
+        <p className="text-sm text-gray-600">Fecha: {new Date().toLocaleDateString()}</p>
+        <p className="text-sm text-gray-600">Generado por: Pocki AI</p>
+      </div>
+      <div className="report-content">
+        <pre className="whitespace-pre-wrap text-lg leading-relaxed text-justify">{content}</pre>
+      </div>
     </div>
   );
 };
