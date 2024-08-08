@@ -76,7 +76,7 @@ const Index = () => {
     }
 
   return (
-    <form className="flex flex-col gap-4 bg-auxiliar p-[2rem] rounded-lg" onSubmit={onLoginSubmit}>
+    <form className="flex flex-col gap-4 bg-auxiliar p-4 rounded-lg" onSubmit={onLoginSubmit}>
         <Loader active={loaderActive} />
         <SideHeader to="/" />
         <LoginSection  
