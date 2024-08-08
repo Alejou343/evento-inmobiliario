@@ -43,7 +43,7 @@ const Index: React.FC<ComponentProps> = ({ endpoint }) => {
         <p className="text-sm text-gray-600">Generado por: Pocki AI</p>
       </div>
       <div className="report-content">
-        <pre className="whitespace-pre-wrap text-lg leading-relaxed text-justify">{content}</pre>
+        <pre className="whitespace-pre-wrap text-lg leading-relaxed text-justify font-sans">{content}</pre>
       </div>
     </div>
   );
