@@ -19,10 +19,11 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.BACK_LINK}/api/comprobante/${id}`)
-                setImage(response?.data?.url)
+                const response = await axios.get(`${process.env.BACK_LINK}/api/comprobante/${id}`);
+                setImage(response?.data?.url);
             } catch (err) {
-                console.error('ERROR', err)
+                console.error('ERROR', err);
+                setWarning('No se pudo cargar la imagen. Intenta nuevamente más tarde.');
             }
         };
 
@@ -30,23 +31,24 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
     }, [id]);
 
     const eventSubmit = () => {
-        setState(!state)
-        setLoaderActive(false)
-        setAlert('Las entradas se enviaron correctamente')
+        setState(!state);
+        setLoaderActive(false);
+        setAlert('Las entradas se enviaron correctamente');
     }
     
     const eventSubmitFailed = () => {
-        setLoaderActive(false)
-        setWarning('Hubo un problema enviando las entradas')
+        setLoaderActive(false);
+        setWarning('Hubo un problema enviando las entradas');
     }
 
     const onFormatSubmit = (id: number) => {
-        setAlert('')
-        setWarning('')
-        setLoaderActive(true)
-        axios.delete(`${process.env.BACK_LINK}/api/${id}`)
+        setAlert('');
+        setWarning('');
+        setLoaderActive(true);
+        // Metodo para enviar mensaje de confirmación por Whatsapp
+        axios.post(`${process.env.BACK_LINK}/api/sendConfirmation`, { phone: id })
         .then(() => eventSubmit())
-        .catch(() => eventSubmitFailed())
+        .catch(() => eventSubmitFailed());
     }
 
     return (
@@ -54,16 +56,22 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
             <Loader active={loaderActive} />
             <div className='items-center flex flex-col p-6 pb-0 pt-0 text-center'>
                 <p> Comprobante de Bancolombia del usuario: <br /> <span className="font-bold"> {id} </span></p>
-                <Image src={image} alt={`Comprobante_${id}.jpg`} width={200} height={200} />
-                {alert && <p> Ocurrió algo inesperado... </p>}
-                {warning && <p> Ocurrió algo inesperado... </p>}
+                <Image 
+                    src={image} 
+                    alt={`Comprobante_${id}.jpg`} 
+                    width={200} 
+                    height={200} 
+                    onError={() => setWarning('No se pudo cargar la imagen. Intenta nuevamente más tarde.')} 
+                />
+                <p>{alert}</p>
+                <p>{warning}</p>
             </div>
             <div className="mt-8 flex gap-6">
                 <button className="rounded-full bg-slate-400 px-4 py-2 text-white font-bold" onClick={() => setState(!state)}>CERRAR</button>
-                <button className="rounded-full bg-secondary px-4 py-2 text-white font-bold" onClick={() => setState(!state)}>ENVIAR CONFIRMACION</button>
+                <button className="rounded-full bg-secondary px-4 py-2 text-white font-bold" onClick={() => onFormatSubmit(id)}>ENVIAR CONFIRMACION</button>
             </div>
         </div>
     )
 }
 
-export default Index
+export default Index;
