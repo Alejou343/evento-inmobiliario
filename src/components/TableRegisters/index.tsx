@@ -49,8 +49,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
         fetchData();
     }, [openModal, endpoint]); // Dependencia modificada para que el efecto se dispare solo cuando cambie `endpoint`
 
-    const openContentModal = (id: number, element: number) => {
-        setModalContent(element)
+    const openContentModal = (id: number) => {
         setOpenModal(!openModal)
         setSelectedItem(id)
     }
@@ -58,9 +57,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
     return (
         <div className="bg-auxiliar min-w-[40rem] max-w-[90%] overflow-auto max-h-[80vh] py-1 my-4 rounded-md mx-auto">
             <ModalGeneral state={openModal} setState={setOpenModal}>
-                {modalContent 
-                ? <ModalContent id={selectedItem} state={openModal} setState={setOpenModal} />
-                :<ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} />}
+                <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} />
             </ModalGeneral>
             <h1 className="text-center mb-4 text-3xl font-bold text-secondary">{title}</h1>
             <div className="overflow-x-auto">
@@ -72,7 +69,6 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                                 </th>
                             ))}
                             <th className='border px-2 font-bold'>Ver comprobante</th>
-                            <th className='border px-2 font-bold'>Enviar entradas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,10 +80,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                                     </td>
                                 ))}
                                 <td className='border px-2 text-center text-sm'>
-                                    <Image src='/assets/open.svg' alt={'/open.svg'} width={15} height={15} className='mx-auto'  onClick={() => openContentModal(row[keys[0]], 0)} />
-                                </td>
-                                <td className='border px-2 text-center text-sm'>
-                                    <Image src='/assets/send.svg' alt={'/send.svg'} width={15} height={15} className='mx-auto'  onClick={() => openContentModal(row[keys[0]], 1)} />
+                                    <Image src='/assets/open.svg' alt={'/open.svg'} width={15} height={15} className='mx-auto'  onClick={() => openContentModal(row[keys[0]])} />
                                 </td>
                             </tr>
                         ))}

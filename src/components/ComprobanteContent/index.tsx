@@ -12,15 +12,15 @@ interface ComponentProps {
 const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
     
     const [alert, setAlert] = React.useState<string>('');
-    // const [name, setName] = React.useState<string>('')
+    const [image, setImage] = React.useState<string>('')
     const [warning, setWarning] = React.useState<string>('');
     const [loaderActive, setLoaderActive  ] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.BACK_LINK}/api/algo/${id}`)
-                // setName(response?.data?.data?.fullName)
+                const response = await axios.get(`${process.env.BACK_LINK}/api/comprobante/${id}`)
+                setImage(response?.data?.url)
             } catch (err) {
                 console.error('ERROR', err)
             }
@@ -54,12 +54,13 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
             <Loader active={loaderActive} />
             <div className='items-center flex flex-col p-6 pb-0 pt-0 text-center'>
                 <p> Comprobante de Bancolombia del usuario: <br /> <span className="font-bold"> {id} </span></p>
-                <Image src="/assets/comprobante.jpeg" alt={`Comprobante_${id}.jpg`} width={200} height={200} />
+                <Image src={image} alt={`Comprobante_${id}.jpg`} width={200} height={200} />
                 {alert && <p> Ocurrió algo inesperado... </p>}
                 {warning && <p> Ocurrió algo inesperado... </p>}
             </div>
             <div className="mt-8 flex gap-6">
                 <button className="rounded-full bg-slate-400 px-4 py-2 text-white font-bold" onClick={() => setState(!state)}>CERRAR</button>
+                <button className="rounded-full bg-secondary px-4 py-2 text-white font-bold" onClick={() => setState(!state)}>ENVIAR CONFIRMACION</button>
             </div>
         </div>
     )
