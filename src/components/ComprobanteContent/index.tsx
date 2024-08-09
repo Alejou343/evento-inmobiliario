@@ -50,7 +50,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
         setWarning('');
         setLoaderActive(true);
         // Metodo para enviar mensaje de confirmación por Whatsapp
-        axios.post(`${process.env.BACK_LINK}/api/sendMessageConfirm`, { phone: id })
+        axios.post(`${process.env.BACK_LINK}/api/sendMessageConfirm`, { phone: id, offset: '0' })
         .then(() => eventSubmit())
         .catch(() => eventSubmitFailed());
     }
