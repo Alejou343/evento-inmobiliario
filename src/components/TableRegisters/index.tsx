@@ -57,7 +57,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
     return (
         <div className="bg-auxiliar min-w-[40rem] max-w-[90%] overflow-auto max-h-[80vh] py-1 my-4 rounded-md mx-auto">
             <ModalGeneral state={openModal} setState={setOpenModal}>
-                <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} />
+                <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} offset='0' />
             </ModalGeneral>
             <h1 className="text-center mb-4 text-3xl font-bold text-secondary">{title}</h1>
             <div className="overflow-x-auto">

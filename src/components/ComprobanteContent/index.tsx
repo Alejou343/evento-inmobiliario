@@ -7,9 +7,10 @@ interface ComponentProps {
     id: number
     state: boolean
     setState: any
+    offset: string
 }
 
-const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
+const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
 
     const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg)$/i    
     const [alert, setAlert] = React.useState<string>('');
@@ -21,7 +22,8 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
         const fetchData = async () => {
             try {
                 setWarning('');
-                const response = await axios.get(`${process.env.BACK_LINK}/api/comprobante/${id}`);
+                console.log(`${process.env.BACK_LINK}/api/comprobante`, { phone: String(id), offset: offset })
+                const response = await axios.post(`${process.env.BACK_LINK}/api/comprobante`, { phone: String(id), offset: offset });
                 setImage(response?.data?.url);
             } catch (err) {
                 console.error('ERROR', err);
@@ -30,7 +32,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState }) => {
         };
 
         fetchData();
-    }, [id]);
+    }, [id, offset]);
 
     const eventSubmit = () => {
         setState(!state);
