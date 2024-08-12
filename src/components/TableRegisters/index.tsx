@@ -55,13 +55,13 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
     }
 
     return (
-        <div className="bg-auxiliar min-w-[40rem] max-w-[90%] overflow-auto max-h-[80vh] py-1 my-4 rounded-md mx-auto">
+        <div className="bg-auxiliar w-[80rem] overflow-auto h-[40vh] py-1 my-4 rounded-md mx-auto">
             <ModalGeneral state={openModal} setState={setOpenModal}>
                 <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} offset='0' />
             </ModalGeneral>
             <h1 className="text-center mb-4 text-3xl font-bold text-secondary">{title}</h1>
             <div className="overflow-x-auto">
-                <table className="table table-hover bg-auxiliar w-full">
+                <table className="table table-hover bg-auxiliar w-full h-[16.125rem]">
                     <thead className='bg-secondary text-white'>
                         <tr>
                             {keys.map(key => (
@@ -72,7 +72,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {rows.slice(page * 20, page * 20 + 20).map((row, id) => (
+                        {rows.slice(page * 10, page * 10 + 10).map((row, id) => (
                             <tr key={id} className="hover:bg-slate-300 bg-slate-100 cursor-pointer">
                                 {keys.map((key: any) => (
                                     <td className='border px-2 text-center text-sm' key={`${key}-${id}`}>
@@ -92,7 +92,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
             text="Total:" 
             page={page} 
             setPage={setPage} 
-            number={20}
+            number={10}
             />
         </div>
     );

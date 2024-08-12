@@ -6,8 +6,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Evento Inmobiliario',
-  description: 'Pocki te ayuda a organizar el evento inmobiliario',
+  title: 'Evento Inmobiliario del año',
+  description: 'Pocki te ayuda a organizar el evento inmobiliario del año',
 }
 
 export default function RootLayout({
