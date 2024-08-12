@@ -55,7 +55,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
     }
 
     return (
-        <div className="bg-auxiliar w-[80rem] overflow-auto h-[40vh] py-1 my-4 rounded-md mx-auto">
+        <div className="bg-auxiliar w-[85rem] overflow-auto h-[39vh] py-1 my-4 rounded-md mx-auto">
             <ModalGeneral state={openModal} setState={setOpenModal}>
                 <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} offset='0' />
             </ModalGeneral>
@@ -69,6 +69,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                                 </th>
                             ))}
                             <th className='border px-2 font-bold'>Comprobante</th>
+                            <th className='border px-2 font-bold'>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +82,9 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                                 ))}
                                 <td className='border px-2 text-center text-sm'>
                                     <Image src='/assets/open.svg' alt={'/open.svg'} width={15} height={15} className='mx-auto'  onClick={() => openContentModal(row[keys[0]])} />
+                                </td>
+                                <td className='border px-2 text-center text-sm'>
+                                    <input type='checkbox' checked={!id} />
                                 </td>
                             </tr>
                         ))}

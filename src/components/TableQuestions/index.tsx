@@ -31,7 +31,7 @@ const Index: React.FC<ComponentProps> = ({ endpoint, title }) => {
     }, [endpoint]);
 
     return (
-        <div className="bg-auxiliar w-[60rem] overflow-auto h-[40vh] py-1 my-4 rounded-md mx-auto">
+        <div className="bg-auxiliar w-[60rem] overflow-auto h-[39vh] py-1 my-4 rounded-md mx-auto">
             <h1 className="text-center mb-4 text-3xl font-bold text-secondary">{title}</h1>
             <div className="overflow-x-auto">
                 <table className="table table-hover bg-auxiliar w-full h-[16.125rem]">
