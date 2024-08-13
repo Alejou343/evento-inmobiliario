@@ -15,6 +15,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
     const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg)$/i    
     const [alert, setAlert] = React.useState<string>('');
     const [image, setImage] = React.useState<string>('')
+    const [phone, setPhone] = React.useState<string>('')
     const [warning, setWarning] = React.useState<string>('');
     const [loaderActive, setLoaderActive  ] = React.useState<boolean>(false);
 
@@ -22,9 +23,9 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
         const fetchData = async () => {
             try {
                 setWarning('');
-                console.log(`${process.env.BACK_LINK}/api/comprobante`, { phone: String(id), offset: offset })
-                const response = await axios.post(`${process.env.BACK_LINK}/api/comprobante`, { phone: String(id), offset: offset });
+                const response = await axios.post(`${process.env.BACK_LINK}/api/comprobante`, { numId: String(id), offset: offset });
                 setImage(response?.data?.url);
+                setPhone(response?.data?.phone);
             } catch (err) {
                 console.error('ERROR', err);
                 setWarning('Comprobante no encontrado');
@@ -45,12 +46,12 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
         setWarning('Hubo un problema enviando las entradas');
     }
 
-    const onFormatSubmit = (id: number) => {
+    const onFormatSubmit = (phone: string, id: number) => {
         setAlert('');
         setWarning('');
         setLoaderActive(true);
         // Metodo para enviar mensaje de confirmación por Whatsapp
-        axios.post(`${process.env.BACK_LINK}/api/sendMessageConfirm`, { phone: id, offset: '0' })
+        axios.post(`${process.env.BACK_LINK}/api/sendMessageConfirm`, { phone: phone, numId: id })
         .then(() => eventSubmit())
         .catch(() => eventSubmitFailed());
     }
@@ -63,7 +64,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
                 { imageExtensions.test(image) 
                     ? <Image 
                     src={image} 
-                    alt={`Comprobante_${id}.jpg`} 
+                    alt={`Comprobante_${phone}.jpg`} 
                     width={200} 
                     height={200} 
                     /> 
@@ -74,7 +75,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
             </div>
             <div className="mt-8 flex gap-6">
                 <button className="rounded-full bg-slate-400 px-4 py-2 text-white font-bold" onClick={() => setState(!state)}>CERRAR</button>
-                <button className="rounded-full bg-secondary px-4 py-2 text-white font-bold" onClick={() => onFormatSubmit(id)}>ENVIAR CONFIRMACION</button>
+                <button className="rounded-full bg-secondary px-4 py-2 text-white font-bold" onClick={() => onFormatSubmit(phone, id)}>ENVIAR CONFIRMACION</button>
             </div>
         </div>
     )

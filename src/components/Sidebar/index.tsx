@@ -38,7 +38,7 @@ const Index = () => {
     }
 
   return (
-    <aside className="bg-primary w-1/6 h-screen relative py-12 rounded-r-[4rem]">
+    <aside className="bg-primary w-[40vh] h-screen relative py-12 rounded-r-[4rem]">
       <SideHeader to="/main" />
       <div className="buttons flex flex-col gap-4">
         <Button 
@@ -60,14 +60,14 @@ const Index = () => {
           type="button" 
           className={`${item == 2 ? styles[0] : styles[1]}`} 
         >
-          Total Registros
+          Registros Exitosos
         </Button>
         <Button 
           onClick={() => handleChange(3)} 
           type="button" 
           className={`${item == 3 ? styles[0] : styles[1]}`} 
         >
-          Total Preguntas
+          Registros No Exitosos
         </Button>
       </div>
       <UserInfo props = {{user, handleLogout}} />

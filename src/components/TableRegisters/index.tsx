@@ -26,21 +26,8 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
             try {
                 const response = await axios.get(`${process.env.BACK_LINK}/api/${endpoint}`);
 
-                const tableInfo = response.data.map((item: any) => {
-                    const message = JSON.parse(item.message);
-                    return {
-                        phone: item.phone,
-                        tipoId: message.tipoId,
-                        numId: message.numId,
-                        name: message.name,
-                        email: message.email,
-                        cel: message.cel,
-                        tipoAsistencia: message.tipoAsistencia,
-                        creationdate: item.creationdate
-                    };
-                });
-                setKeys(Object.keys(tableInfo[0]));
-                setRows(tableInfo);
+                setKeys(Object.keys(response.data[0]));
+                setRows(response.data);
             } catch (err: any) {
                 setError(err);
             }
@@ -55,7 +42,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
     }
 
     return (
-        <div className="bg-auxiliar w-[85rem] overflow-auto h-[39vh] py-1 my-4 rounded-md mx-auto">
+        <div className="bg-auxiliar w-[65rem] overflow-auto h-[39vh] py-1 my-4 rounded-md mx-auto">
             <ModalGeneral state={openModal} setState={setOpenModal}>
                 <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} offset='0' />
             </ModalGeneral>
@@ -64,10 +51,12 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                 <table className="table table-hover bg-auxiliar w-full h-[16.125rem]">
                     <thead className='bg-secondary text-white'>
                         <tr>
-                            {keys.map(key => (
-                                <th className='border px-2 font-bold' key={key}>{key}
-                                </th>
-                            ))}
+                            <th className='border px-2 font-bold'>Tipo id</th>
+                            <th className='border px-2 font-bold'>Número id</th>
+                            <th className='border px-2 font-bold'>Nombre</th>
+                            <th className='border px-2 font-bold'>Correo</th>
+                            <th className='border px-2 font-bold'>Tipo Asistente</th>
+                            <th className='border px-2 font-bold'>Celular</th>
                             <th className='border px-2 font-bold'>Comprobante</th>
                             <th className='border px-2 font-bold'>Estado</th>
                         </tr>
@@ -75,16 +64,17 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                     <tbody>
                         {rows.slice(page * 10, page * 10 + 10).map((row, id) => (
                             <tr key={id} className="hover:bg-slate-300 bg-slate-100 cursor-pointer">
-                                {keys.map((key: any) => (
-                                    <td className='border px-2 text-center text-sm' key={`${key}-${id}`}>
-                                        {row[key] || ''}
-                                    </td>
-                                ))}
+                                    <td className='border px-2 text-center text-sm'>{row.tipoId}</td>
+                                    <td className='border px-2 text-center text-sm'>{row.numId}</td>
+                                    <td className='border px-2 text-center text-sm'>{row.name}</td>
+                                    <td className='border px-2 text-center text-sm'>{row.email}</td>
+                                    <td className='border px-2 text-center text-sm'>{row.tipoAsistencia}</td>
+                                    <td className='border px-2 text-center text-sm'>{row.cel}</td>
                                 <td className='border px-2 text-center text-sm'>
-                                    <Image src='/assets/open.svg' alt={'/open.svg'} width={15} height={15} className='mx-auto'  onClick={() => openContentModal(row[keys[0]])} />
+                                    <Image src='/assets/open.svg' alt={'/open.svg'} width={25} height={25} className='mx-auto'  onClick={() => openContentModal(row.numId)} />
                                 </td>
                                 <td className='border px-2 text-center text-sm'>
-                                    <input type='checkbox' checked={!id} />
+                                    <input type='checkbox' checked={row.state} readOnly />
                                 </td>
                             </tr>
                         ))}
