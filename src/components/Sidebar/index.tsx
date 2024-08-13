@@ -46,14 +46,14 @@ const Index = () => {
           type="button" 
           className={`${item == 0 ? styles[0] : styles[1]}`} 
         >
-          Registros Exitosos
+          Pagos Exitosos
         </Button>
         <Button 
           onClick={() => handleChange(1)} 
           type="button" 
           className={`${item == 1 ? styles[0] : styles[1]}`} 
         >
-          Registros No Exitosos
+          Pagos No Exitosos
         </Button>
         <Button 
           onClick={() => handleChange(2)} 
