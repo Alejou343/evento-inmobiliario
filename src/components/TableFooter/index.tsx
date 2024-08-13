@@ -29,7 +29,7 @@ const Index: React.FC<TableFooterProps> = ({ param, text, page, setPage, number 
             className="rotate-180 cursor-pointer aspect-square" 
             onClick={handlePreview} 
             title="Página Anterior" />
-                <b> {text} &nbsp; {`${page* number} / ${param?.length}`} </b>
+                <b> {text} &nbsp; {`${param?.length ? param.length : 0}`} </b>
             <Image 
             src="/assets/arrow.svg" 
             alt="right-arrow.svg" 

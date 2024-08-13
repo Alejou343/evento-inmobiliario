@@ -14,10 +14,8 @@ interface ComponentProps {
 const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
 
     const [selectedItem, setSelectedItem] = React.useState<number>(0);
-    const [modalContent, setModalContent] = React.useState<number | null>(null)
     const [page, setPage] = React.useState<number>(0)
     const [rows, setRows] = React.useState<any[]>([]);
-    const [keys, setKeys] = React.useState<any[]>([]);
     const [error, setError] = React.useState<any>(null);
     const [openModal, setOpenModal] = React.useState<boolean>(false);
 
@@ -25,8 +23,6 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.BACK_LINK}/api/${endpoint}`);
-
-                setKeys(Object.keys(response.data[0]));
                 setRows(response.data);
             } catch (err: any) {
                 setError(err);
@@ -42,7 +38,7 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
     }
 
     return (
-        <div className="bg-auxiliar w-[65rem] overflow-auto h-[39vh] py-1 my-4 rounded-md mx-auto">
+        <div className="bg-auxiliar w-[75rem] overflow-auto h-[44vh] py-1 my-4 rounded-md mx-auto">
             <ModalGeneral state={openModal} setState={setOpenModal}>
                 <ComprobanteContent id={selectedItem} state={openModal} setState={setOpenModal} offset='0' />
             </ModalGeneral>
@@ -57,12 +53,13 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                             <th className='border px-2 font-bold'>Correo</th>
                             <th className='border px-2 font-bold'>Tipo Asistente</th>
                             <th className='border px-2 font-bold'>Celular</th>
+                            <th className='border px-2 font-bold'>Fecha de Creación</th> 
                             <th className='border px-2 font-bold'>Comprobante</th>
                             <th className='border px-2 font-bold'>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {rows.slice(page * 10, page * 10 + 10).map((row, id) => (
+                        {rows.length ? rows?.slice(page * 10, page * 10 + 10).map((row, id) => (
                             <tr key={id} className="hover:bg-slate-300 bg-slate-100 cursor-pointer">
                                     <td className='border px-2 text-center text-sm'>{row.tipoId}</td>
                                     <td className='border px-2 text-center text-sm'>{row.numId}</td>
@@ -70,14 +67,26 @@ const Index: React.FC<ComponentProps> = ({ title, endpoint }) => {
                                     <td className='border px-2 text-center text-sm'>{row.email}</td>
                                     <td className='border px-2 text-center text-sm'>{row.tipoAsistencia}</td>
                                     <td className='border px-2 text-center text-sm'>{row.cel}</td>
+                                    <td className='border px-2 text-center text-sm'>{row.creationdate}</td>
                                 <td className='border px-2 text-center text-sm'>
-                                    <Image src='/assets/open.svg' alt={'/open.svg'} width={25} height={25} className='mx-auto'  onClick={() => openContentModal(row.numId)} />
+                                    {row.phoneTalk == 'Cortesía'
+                                        ? <Image src='/assets/ticket.svg' alt={'/ticket.svg'} width={25} height={25} className='mx-auto' title={`Cortesía de ${row.name}`} />
+                                        : <Image src='/assets/open.svg' alt={'/open.svg'} width={25} height={25} className='mx-auto' title={`Ver comprobante de ${row.name}`} onClick={() => openContentModal(row.numId)} />}
                                 </td>
                                 <td className='border px-2 text-center text-sm'>
                                     <input type='checkbox' checked={row.state} readOnly />
                                 </td>
                             </tr>
-                        ))}
+                        )) : <tr className="hover:bg-slate-300 bg-slate-100 cursor-pointer">
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                                <td className='border px-2 text-center text-sm'></td>
+                            </tr>}
                     </tbody>
                 </table>
             </div>

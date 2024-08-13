@@ -39,6 +39,7 @@ const Index: React.FC<ComponentProps> = ({ id, state, setState, offset }) => {
         setState(!state);
         setLoaderActive(false);
         setAlert('Las entradas se enviaron correctamente');
+        window.location.reload()
     }
     
     const eventSubmitFailed = () => {

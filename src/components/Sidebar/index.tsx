@@ -41,33 +41,33 @@ const Index = () => {
     <aside className="bg-primary w-[40vh] h-screen relative py-12 rounded-r-[4rem]">
       <SideHeader to="/main" />
       <div className="buttons flex flex-col gap-4">
-        <Button 
+      <Button 
           onClick={() => handleChange(0)} 
           type="button" 
           className={`${item == 0 ? styles[0] : styles[1]}`} 
         >
-          Informe Registros
+          Registros Exitosos
         </Button>
         <Button 
           onClick={() => handleChange(1)} 
           type="button" 
           className={`${item == 1 ? styles[0] : styles[1]}`} 
         >
-          Informe Preguntas
+          Registros No Exitosos
         </Button>
         <Button 
           onClick={() => handleChange(2)} 
           type="button" 
           className={`${item == 2 ? styles[0] : styles[1]}`} 
         >
-          Registros Exitosos
+          Informe Registros
         </Button>
         <Button 
           onClick={() => handleChange(3)} 
           type="button" 
           className={`${item == 3 ? styles[0] : styles[1]}`} 
         >
-          Registros No Exitosos
+          Informe Preguntas
         </Button>
       </div>
       <UserInfo props = {{user, handleLogout}} />
